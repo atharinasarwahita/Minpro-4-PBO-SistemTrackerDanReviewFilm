@@ -1,4 +1,4 @@
-package models;
+package model.entitas;
 
 public class Review implements Displayable{
     private final int idReview;

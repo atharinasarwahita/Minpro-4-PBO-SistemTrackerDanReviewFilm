@@ -1,4 +1,4 @@
-package models;
+package model.entitas;
 
 public class AnimatedFilm extends Film {
     private String pengisiSuara;

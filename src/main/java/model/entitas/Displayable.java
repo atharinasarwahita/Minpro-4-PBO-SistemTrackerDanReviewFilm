@@ -1,4 +1,4 @@
-package models;
+package model.entitas;
 
 public interface Displayable {
     void tampilkanInfo();

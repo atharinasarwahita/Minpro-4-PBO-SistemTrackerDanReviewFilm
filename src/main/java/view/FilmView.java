@@ -1,7 +1,8 @@
 package view;
 
-import java.util.ArrayList;
-import models.*;
+import model.entitas.Film;
+import model.entitas.Review;
+import java.util.List;
 
 public class FilmView {
     //Menampilkan menu utama
@@ -17,7 +18,7 @@ public class FilmView {
     }
     
     //Menampilkan rngkasan film
-    public void tampilkanRingkasanFilm(ArrayList<Film> daftarFilm, ArrayList<Review> daftarReview) {
+    public void tampilkanRingkasanFilm(List<Film> daftarFilm, List<Review> daftarReview) {
         System.out.println("\n+----------------------------------------------------------------+");
         System.out.println("|                           DAFTAR FILM                          |");
         System.out.println("+----------------------------------------------------------------+");
@@ -39,7 +40,7 @@ public class FilmView {
     }
 
     //READ (Menampilkan Film dan Review)
-    public void tampilkanFilm(ArrayList<Film> daftarFilm, ArrayList<Review> daftarReview) {
+    public void tampilkanFilm(List<Film> daftarFilm, List<Review> daftarReview) {
         System.out.println("\n==================================================================");
         System.out.println("                          FILM & REVIEW                           ");
         System.out.println("==================================================================");

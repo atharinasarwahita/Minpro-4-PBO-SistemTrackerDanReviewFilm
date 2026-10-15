@@ -1,4 +1,4 @@
-package models;
+package model.entitas;
 
 public class FeatureFilm extends Film {
     private String pemeranUtama;

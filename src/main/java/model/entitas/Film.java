@@ -1,4 +1,4 @@
-package models;
+package model.entitas;
 import java.time.Year;
 
 public abstract class Film implements Displayable {
