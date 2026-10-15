@@ -11,13 +11,18 @@ import model.entitas.AnimatedFilm;
 import model.entitas.Film;
 
 public class AnimatedFilmDAO {
+    
+    private Connection conn;
+    
+    public AnimatedFilmDAO() {
+        this.conn = Koneksi.getConnection();
+    }
            
     public void tambahAnimatedFilm(AnimatedFilm film) {
         String sqlFilm = "INSERT INTO film (judul, sutradara, tahun_rilis, genre, durasi, tipe_film) VALUES (?, ?, ?, ?, ?, 'ANIMATED')";
         String sqlAnimated = "INSERT INTO animated_film (id_film, pengisi_suara, karakter_animasi, gaya_animasi) VALUES (?, ?, ?, ?)";
         
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement pstmtFilm = conn.prepareStatement(sqlFilm, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement pstmtFilm = conn.prepareStatement(sqlFilm, Statement.RETURN_GENERATED_KEYS)) {
             
             pstmtFilm.setString(1, film.getJudul());
             pstmtFilm.setString(2, film.getSutradara());
@@ -49,8 +54,7 @@ public class AnimatedFilmDAO {
     String sql = "SELECT f.*, af.pengisi_suara, af.karakter_animasi, af.gaya_animasi " +
                  "FROM film f JOIN animated_film af ON f.id_film = af.id_film";
 
-    try (Connection conn = Koneksi.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql);
+    try (PreparedStatement pstmt = conn.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery()) {
 
         while (rs.next()) {
@@ -75,8 +79,7 @@ public class AnimatedFilmDAO {
     //Cari ID Film
         public boolean adaIdFilm(int idFilm) {
         String sql = "SELECT 1 FROM film WHERE id_film = ?";
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFilm);
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();

@@ -12,12 +12,17 @@ import model.entitas.Film;
 
 public class FeatureFilmDAO {
     
+    private Connection conn;
+    
+    public FeatureFilmDAO() {
+        this.conn = Koneksi.getConnection();
+    }
+    
     public void tambahFeatureFilm(FeatureFilm film) {
         String sqlFilm = "INSERT INTO film (judul, sutradara, tahun_rilis, genre, durasi, tipe_film) VALUES (?, ?, ?, ?, ?, 'FEATURE')";
         String sqlFeature = "INSERT INTO feature_film (id_film, pemeran_utama, karakter_live_action) VALUES (?, ?, ?)";
         
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement pstmtFilm = conn.prepareStatement(sqlFilm, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement pstmtFilm = conn.prepareStatement(sqlFilm, Statement.RETURN_GENERATED_KEYS)) {
             
             pstmtFilm.setString(1, film.getJudul());
             pstmtFilm.setString(2, film.getSutradara());
@@ -52,8 +57,7 @@ public class FeatureFilmDAO {
         String sql = "SELECT f.*, ff.pemeran_utama, ff.karakter_live_action " +
                      "FROM film f JOIN feature_film ff ON f.id_film = ff.id_film";
         
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             
             while (rs.next()) {
@@ -77,8 +81,7 @@ public class FeatureFilmDAO {
     //Cari ID Film
         public boolean adaIdFilm(int idFilm) {
         String sql = "SELECT 1 FROM film WHERE id_film = ?";
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFilm);
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();

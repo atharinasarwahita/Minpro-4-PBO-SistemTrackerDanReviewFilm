@@ -10,10 +10,14 @@ import model.entitas.Review;
 
 public class ReviewDAO {
     
+    private Connection conn;
+    
+    public ReviewDAO() {
+        this.conn = Koneksi.getConnection();
+    }
     public void tambahReview(Review review) {
         String sql = "INSERT INTO review (id_film, rating, ulasan, is_rewatch) VALUES (?, ?, ?, ?)";
-        try (Connection conn = Koneksi.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setInt(1, review.getIdFilm());
             pstmt.setDouble(2, review.getRating());
@@ -29,8 +33,7 @@ public class ReviewDAO {
     public List<Review> ambilSemuaReview() {
         List<Review> list = new ArrayList<>();
         String sql = "SELECT * FROM review";
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
@@ -51,8 +54,7 @@ public class ReviewDAO {
     public List<Review> ambilReviewId(int idFilm) {
         List<Review> list = new ArrayList<>();
         String sql = "SELECT * FROM review WHERE id_film = ?";
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idFilm);
             try (ResultSet rs = ps.executeQuery()) {
@@ -74,8 +76,7 @@ public class ReviewDAO {
     
     public void updateReview(Review review) {
         String sql = "UPDATE review SET rating = ?, ulasan = ? WHERE id_review = ?";
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setDouble(1, review.getRating());
             pstmt.setString(2, review.getUlasan());
@@ -89,8 +90,7 @@ public class ReviewDAO {
     
     public void hapusReview(int idReview) {
         String sql = "DELETE FROM review WHERE id_review = ?";
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idReview);
             ps.executeUpdate();
@@ -101,8 +101,7 @@ public class ReviewDAO {
     
     public boolean adaIdFilm(int idFilm) {
         String sql = "SELECT 1 FROM film WHERE id_film = ?";
-        try (Connection conn = Koneksi.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             
             ps.setInt(1, idFilm);
             try (ResultSet rs = ps.executeQuery()) {
