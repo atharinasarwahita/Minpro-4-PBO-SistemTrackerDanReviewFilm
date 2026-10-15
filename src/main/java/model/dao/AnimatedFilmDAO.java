@@ -74,20 +74,5 @@ public class AnimatedFilmDAO {
         System.out.println("Gagal mengambil data film animasi - " + e.getMessage());
     }
     return list;
-    }
-    
-    //Cari ID Film
-        public boolean adaIdFilm(int idFilm) {
-        String sql = "SELECT 1 FROM film WHERE id_film = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idFilm);
-            try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
-            }
-        } catch (SQLException e) {
-            System.out.println("Gagal mengecek film: " + e.getMessage());
-            return false;
-        }
-    }
-        
+    }   
 }
