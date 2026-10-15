@@ -196,7 +196,7 @@ ID film dan review dibuat otomatis oleh database lewat `AUTO_INCREMENT`. Karena 
 
   Versi tanpa parameter tidak menulis ulang logika tampilan, tetapi memanggil versi berparameter dengan nilai `false`. Dengan begitu logika tampilan hanya ditulis sekali dan tidak ada kode yang duplikat.
 
-## Penerapan JDBC ─ ★ ˙ ̟ !!
+## Penerapan JDBC, DAO, dan PreparedStatement ─ ★ ˙ ̟ !!
 Program memakai **JDBC** untuk terhubung ke database MySQL `db_film_review`. Seluruh kode JDBC dipisahkan dari controller dan view, yaitu di package `config` (koneksi) dan `model.dao` (query).
 
 ### 1. Dependency
